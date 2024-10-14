@@ -1,6 +1,7 @@
 import netscape.javascript.JSObject;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +11,9 @@ public class Persona {
     private int edad;
     private String dni;
     private String sexo;
+
+    public Persona()
+    {}
 
     public Persona(String nombre, int edad, String dni, String sexo) {
         this.nombre = nombre;
@@ -50,15 +54,13 @@ public class Persona {
         this.sexo = sexo;
     }
 
-    public JSONObject serializar() {
-        JSONObject jsonObject = new JSONObject();
-
-        jsonObject.put("nombre", nombre);
-        jsonObject.put("edad", edad);
-        jsonObject.put("sexo", sexo);
-        jsonObject.put("dni", dni);
-
-        return jsonObject;
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "nombre='" + nombre + '\'' +
+                ", edad=" + edad +
+                ", dni='" + dni + '\'' +
+                ", sexo='" + sexo + '\'' +
+                '}';
     }
-
 }
