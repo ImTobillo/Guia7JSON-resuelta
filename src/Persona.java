@@ -5,6 +5,7 @@ import org.json.JSONTokener;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Persona {
     private String nombre;
@@ -62,5 +63,18 @@ public class Persona {
                 ", dni='" + dni + '\'' +
                 ", sexo='" + sexo + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Persona persona = (Persona) o;
+        return edad == persona.edad && Objects.equals(nombre, persona.nombre) && Objects.equals(dni, persona.dni) && Objects.equals(sexo, persona.sexo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, edad, dni, sexo);
     }
 }
