@@ -1,3 +1,5 @@
+import org.json.JSONObject;
+
 import java.util.Objects;
 
 public class Libro {
@@ -7,6 +9,14 @@ public class Libro {
     private String ISBN;
 
     public Libro() {
+    }
+
+    public Libro(JSONObject jsonLibro)
+    {
+        nombre = jsonLibro.getString("nombre");
+        autor = jsonLibro.getString("autor");
+        genero = jsonLibro.getString("genero");
+        ISBN = jsonLibro.getString("ISBN");
     }
 
     public Libro(String nombre, String autor, String genero, String ISBN) {
@@ -46,6 +56,18 @@ public class Libro {
 
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
+    }
+
+    public JSONObject toJSON ()
+    {
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("nombre", nombre);
+        jsonObject.put("genero", genero);
+        jsonObject.put("autor", autor);
+        jsonObject.put("ISBN", ISBN);
+
+        return jsonObject;
     }
 
     @Override

@@ -3,6 +3,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class GestorJSONCurso {
+    private String nomJSON = "curso.json";
     private GestorJSONPersona gestorJSONPersona;
 
     public GestorJSONCurso ()
@@ -34,8 +35,9 @@ public class GestorJSONCurso {
         return jsonObject;
     }
 
-    public Curso deserializar (JSONTokener jsonTokener)
+    public Curso deserializar ()
     {
+        JSONTokener jsonTokener = OperacionesLectoEscritura.leer(nomJSON);
         // se guarda el JSONObject del curso
         JSONObject jsonObject = new JSONObject(jsonTokener);
         // se instancia un objeto Curso para cargar y retornar con datos

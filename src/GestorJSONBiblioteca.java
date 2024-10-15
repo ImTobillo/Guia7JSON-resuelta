@@ -3,6 +3,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class GestorJSONBiblioteca {
+    private String nomJSON = "biblioteca.json";
     public GestorJSONBiblioteca()
     {}
 
@@ -16,12 +17,7 @@ public class GestorJSONBiblioteca {
 
         for (Libro libro: biblioteca.getLibros())
         {
-            JSONObject jsonLibro = new JSONObject();
-
-            jsonLibro.put("nombre", libro.getNombre());
-            jsonLibro.put("genero", libro.getGenero());
-            jsonLibro.put("autor", libro.getAutor());
-            jsonLibro.put("ISBN", libro.getISBN());
+            JSONObject jsonLibro = libro.toJSON();
 
             jsonArray.put(jsonLibro);
         }
@@ -31,8 +27,9 @@ public class GestorJSONBiblioteca {
         return jsonObject;
     }
 
-    public Biblioteca deserializar (JSONTokener jsonTokener)
+    public Biblioteca deserializar ()
     {
+        JSONTokener jsonTokener = OperacionesLectoEscritura.leer(nomJSON);
         JSONObject jsonObject = new JSONObject(jsonTokener);
         Biblioteca biblioteca = new Biblioteca();
 
@@ -42,12 +39,9 @@ public class GestorJSONBiblioteca {
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonLibro = jsonArray.getJSONObject(i);
-            Libro libro = new Libro();
 
-            libro.setNombre(jsonLibro.getString("nombre"));
-            libro.setAutor(jsonLibro.getString("autor"));
-            libro.setGenero(jsonLibro.getString("genero"));
-            libro.setISBN(jsonLibro.getString("ISBN"));
+            /// usamos un constructor de libro que reciba un JSON
+            Libro libro = new Libro(jsonLibro);
 
             biblioteca.agregarLibro(libro);
         }
@@ -55,8 +49,42 @@ public class GestorJSONBiblioteca {
         return biblioteca;
     }
 
-    public boolean agregarLibro(Libro libro)
+    public void agregarLibro(Libro libro)
     {
-        JSONObject jsonObject = serializar();
+        JSONTokener jsonTokener = OperacionesLectoEscritura.leer(nomJSON);
+        JSONObject jsonBiblioteca = new JSONObject(jsonTokener);
+
+        /// leemos el JSONArray de libros dentro del JSONObject de biblioteca
+        JSONArray jsonArray = jsonBiblioteca.getJSONArray("libros");
+
+        /// transformamos el libro que queremos agregar a un JSONObject, para poder agregarlo al JSONArray
+        JSONObject jsonLibro = libro.toJSON();
+        /// agregamos el JSONObject de libro al JSONArray
+        jsonArray.put(jsonLibro);
+
+        /// guardamos el JSON de nuevo
+        OperacionesLectoEscritura.grabar(nomJSON, jsonBiblioteca);
+    }
+
+    public void borrarLibro (String ISBN)
+    {
+        JSONTokener jsonTokener = OperacionesLectoEscritura.leer(nomJSON);
+        JSONObject jsonBiblioteca = new JSONObject(jsonTokener);
+
+        /// leemos el JSONArray de libros dentro del JSONObject de biblioteca
+        JSONArray jsonArray = jsonBiblioteca.getJSONArray("libros");
+
+        /// buscamos la posicion del JSONObject del libro y lo borramos usando JSONArray.remove(i)
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonLibro = jsonArray.getJSONObject(i);
+            if (jsonLibro.getString("ISBN").equals(ISBN))
+            {
+                jsonArray.remove(i);
+                break;
+            }
+        }
+
+        /// guardamos el JSON de nuevo
+        OperacionesLectoEscritura.grabar(nomJSON, jsonBiblioteca);
     }
 }

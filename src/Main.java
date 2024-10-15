@@ -29,8 +29,7 @@ public class Main {
             OperacionesLectoEscritura.grabar("curso.json", gestorJSONCurso.serializar(curso));
 
             /// lectura
-            jsonTokener = OperacionesLectoEscritura.leer("curso.json");
-            Curso cursoJSON = gestorJSONCurso.deserializar(jsonTokener);
+            Curso cursoJSON = gestorJSONCurso.deserializar();
             System.out.println("Curso leído del JSON: " + cursoJSON.toString());
 
             /// EJERCICIO 4
@@ -43,8 +42,11 @@ public class Main {
             // guardar estado actual
             OperacionesLectoEscritura.grabar("biblioteca.json", gestorJSONBiblioteca.serializar(biblioteca));
 
-            //
+            // agregar un libro
+            gestorJSONBiblioteca.agregarLibro(new Libro("El principito", "Saint-Exupery", "Fantasia", "233-442-64545-3-6"));
 
+            // borrar un libro
+            gestorJSONBiblioteca.borrarLibro("233-442-64545-3-6");
 
         }
         catch (JSONException e)
