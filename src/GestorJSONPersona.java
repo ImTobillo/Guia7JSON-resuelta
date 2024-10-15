@@ -17,7 +17,7 @@ public class GestorJSONPersona {
         return jsonObject;
     }
 
-    public Persona deserealizar (JSONTokener jsonTokener)
+    public Persona deserializar(JSONTokener jsonTokener)
     {
         Persona persona = new Persona();
 

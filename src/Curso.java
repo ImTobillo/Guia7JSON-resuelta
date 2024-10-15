@@ -5,6 +5,11 @@ public class Curso {
     private int codigo;
     private ArrayList<Persona> alumnosInscriptos;
 
+    public Curso()
+    {
+        this.alumnosInscriptos = new ArrayList<Persona>();
+    }
+
     public Curso(String nombreCurso, int codigo) {
         this.alumnosInscriptos = new ArrayList<Persona>();
         this.nombreCurso = nombreCurso;

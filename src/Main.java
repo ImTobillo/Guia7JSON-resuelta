@@ -12,12 +12,12 @@ public class Main {
             Persona persona = new Persona("Juancito", 15, "43223223", "masculino");
             OperacionesLectoEscritura.grabar("persona.json", gestorJSONPersona.serializar(persona));
 
-            /// EJERCICIO 2 - gestorPersona.deserealizar() recibe el JSONTokener generado al leer el archivo JSON, para poder convertir el JSONObject a un objeto Java
+            /// EJERCICIO 2 - gestorPersona.deserializar() recibe el JSONTokener generado al leer el archivo JSON, para poder convertir el JSONObject a un objeto Java
             JSONTokener jsonTokener = OperacionesLectoEscritura.leer("persona.json");
-            Persona personaJSON = gestorJSONPersona.deserealizar(jsonTokener);
+            Persona personaJSON = gestorJSONPersona.deserializar(jsonTokener);
             System.out.println("Persona leida del JSON: " + personaJSON.toString());
 
-            /// EJERCICIO 3 -
+            /// EJERCICIO 3
             /// carga del curso
             Curso curso = new Curso("Illia", 112323);
             curso.agregarAlumno(new Persona("Maria", 12, "47848983", "femenino"));
@@ -29,7 +29,11 @@ public class Main {
 
             /// lectura
             jsonTokener = OperacionesLectoEscritura.leer("curso.json");
-            Curso cursoJSON =
+            Curso cursoJSON = gestorJSONCurso.deserializar(jsonTokener);
+            System.out.println("Curso leído del JSON: " + cursoJSON.toString());
+
+            /// EJERCICIO 4
+
 
         }
         catch (JSONException e)
