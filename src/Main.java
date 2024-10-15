@@ -7,6 +7,7 @@ public class Main {
         {
             GestorJSONPersona gestorJSONPersona = new GestorJSONPersona();
             GestorJSONCurso gestorJSONCurso = new GestorJSONCurso();
+            GestorJSONBiblioteca gestorJSONBiblioteca = new GestorJSONBiblioteca();
 
             /// EJERCICIO 1 - gestorPersona.serializar() convierte el objeto a JSONObject y el metodo estatico grabar() guarda el JSONObject en un archivo con extension .json
             Persona persona = new Persona("Juancito", 15, "43223223", "masculino");
@@ -33,6 +34,16 @@ public class Main {
             System.out.println("Curso leído del JSON: " + cursoJSON.toString());
 
             /// EJERCICIO 4
+            // carga inicial de datos
+            Biblioteca biblioteca = new Biblioteca("Ateneo");
+            biblioteca.agregarLibro(new Libro("El hombre que fue Jueves", "GK Chesterton", "Policial", "233-345-32332-2-1"));
+            biblioteca.agregarLibro(new Libro("Rebelion en la granja", "George Orwell", "Satira", "212-341-36677-1-4"));
+            biblioteca.agregarLibro(new Libro("Un mundo feliz", "Huxley", "Ciencia Ficción", "132-151-38671-3-1"));
+
+            // guardar estado actual
+            OperacionesLectoEscritura.grabar("biblioteca.json", gestorJSONBiblioteca.serializar(biblioteca));
+
+            //
 
 
         }
