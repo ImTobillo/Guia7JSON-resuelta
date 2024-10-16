@@ -8,6 +8,7 @@ public class Main {
             GestorJSONPersona gestorJSONPersona = new GestorJSONPersona();
             GestorJSONCurso gestorJSONCurso = new GestorJSONCurso();
             GestorJSONBiblioteca gestorJSONBiblioteca = new GestorJSONBiblioteca();
+            GestorJSONEmpleado gestorJSONEmpleado = new GestorJSONEmpleado();
 
             /// EJERCICIO 1 - gestorPersona.serializar() convierte el objeto a JSONObject y el metodo estatico grabar() guarda el JSONObject en un archivo con extension .json
             Persona persona = new Persona("Juancito", 15, "43223223", "masculino");
@@ -48,8 +49,22 @@ public class Main {
             // borrar un libro
             gestorJSONBiblioteca.borrarLibro("233-442-64545-3-6");
 
+            /// EJERCICIO 5
+            Empleado empleado = new Empleado(1, "Carlos Alvarado", 1200000, "Sistemas");
+            gestorJSONEmpleado.guardarEnJSON(empleado);
+            Empleado empleadoLeido = gestorJSONEmpleado.leerJSON();
+            System.out.println(empleadoLeido.toString());
+        }
+        catch (FormatoIncorrectoException e)
+        {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
